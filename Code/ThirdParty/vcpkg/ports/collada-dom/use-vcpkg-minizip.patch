@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index f6c2bb6..3351ab0 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -222,7 +222,8 @@ else()
+   endif()
+ endif()
+ 
+-pkg_check_modules(minizip minizip)
++find_package(minizip NAMES unofficial-minizip REQUIRED)
++add_library(minizip ALIAS unofficial::minizip::minizip)
+ if(minizip_FOUND)
+   set(MINIZIP_INCLUDE_DIR ${minizip_INCLUDE_DIRS})
+ else()

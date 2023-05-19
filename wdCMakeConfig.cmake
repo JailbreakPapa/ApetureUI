@@ -7,6 +7,7 @@ set_property(GLOBAL PROPERTY WD_BUILDTYPENAME_DEV_UPPER "DEV")
 set_property(GLOBAL PROPERTY WD_BUILDTYPENAME_RELEASE_UPPER "SHIPPING")
 
 set_property(GLOBAL PROPERTY WD_DEPOT_TOOLS_INSTALL_LINK_WIN "https://github.com/KuraStudios/WD_THIRDPARTY/raw/main/depot_tools.7z")
+set_property(GLOBAL PROPERTY WD_V8_PREBUILT_INSTALL_WIN "https://github.com/KuraStudios/WD_THIRDPARTY/raw/main/v8_prebuilt.7z")
 
 set_property(GLOBAL PROPERTY WD_DEV_BUILD_LINKERFLAGS "DEBUG")
 

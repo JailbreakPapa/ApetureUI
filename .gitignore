@@ -353,4 +353,15 @@ MigrationBackup/
 AssetCache
 /build/
 /buildUWP/
-Code/Engine/ezBuildInfo.h
+Code/Engine/wdBuildInfo.h
+
+
+# ThirdParty Ignores
+
+Code/ThirdParty/V8-LocalBuild/
+Code/ThirdParty/v8_prebuilt/
+*.dll
+*.lib
+*.dat
+*.x86
+*.7z

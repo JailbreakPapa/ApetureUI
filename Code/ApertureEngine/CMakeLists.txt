@@ -1,11 +1,9 @@
 wd_cmake_init()
 
-
-
 # Get the name of this folder as the project name
 get_filename_component(PROJECT_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME_WE)
 
-wd_create_target(LIBRARY ${PROJECT_NAME})
+wd_create_target(SHARED_LIBRARY ${PROJECT_NAME})
 
 if(MSVC)
   target_compile_options(${PROJECT_NAME} PRIVATE /W4 /WX)
@@ -16,5 +14,5 @@ target_link_libraries(${PROJECT_NAME}
   Core
   Foundation
   Utilities
-  v8Engine
+  V8Engine
 )

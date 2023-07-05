@@ -38,7 +38,7 @@ macro(wd_configure_external_project)
 	else()
 		set(WD_SUBMODULE_PREFIX_PATH "")
 	endif()
-	
+
 	set_property(GLOBAL PROPERTY WD_SUBMODULE_PREFIX_PATH ${WD_SUBMODULE_PREFIX_PATH})
 
 	if(WD_SUBMODULE_PREFIX_PATH STREQUAL "")

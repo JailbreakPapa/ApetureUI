@@ -240,8 +240,8 @@ endfunction()
 # ## wd_add_output_wd_prefix(<target>)
 # #####################################
 function(wd_add_output_wd_prefix TARGET_NAME)
-	set_target_properties(${TARGET_NAME} PROPERTIES IMPORT_PREFIX "S2")
-	set_target_properties(${TARGET_NAME} PROPERTIES PREFIX "S2")
+	set_target_properties(${TARGET_NAME} PROPERTIES IMPORT_PREFIX "")
+	set_target_properties(${TARGET_NAME} PROPERTIES PREFIX "")
 endfunction()
 
 # #####################################
@@ -307,14 +307,16 @@ endfunction()
 # ## wd_glob_source_files(<path-to-folder> <out-files>)
 # #####################################
 function(wd_glob_source_files ROOT_DIR RESULT_ALL_SOURCES)
-	file(GLOB_RECURSE RELEVANT_FILES 
-		"${ROOT_DIR}/*.cpp" 
-		"${ROOT_DIR}/*.cc" 
-		"${ROOT_DIR}/*.h" 
-		"${ROOT_DIR}/*.hpp" 
-		"${ROOT_DIR}/*.inl" 
-		"${ROOT_DIR}/*.c" 
-		"${ROOT_DIR}/*.cs" 
+	file(GLOB_RECURSE RELEVANT_FILES
+		"${ROOT_DIR}/*.cpp"
+        "${ROOT_DIR}/*.xaml.cs"
+        "${ROOT_DIR}/*.xaml"
+		"${ROOT_DIR}/*.cc"
+		"${ROOT_DIR}/*.h"
+		"${ROOT_DIR}/*.hpp"
+		"${ROOT_DIR}/*.inl"
+		"${ROOT_DIR}/*.c"
+		"${ROOT_DIR}/*.cs"
 		"${ROOT_DIR}/*.ui"
 		"${ROOT_DIR}/*.qrc"
 		"${ROOT_DIR}/*.def"
@@ -329,6 +331,37 @@ function(wd_glob_source_files ROOT_DIR RESULT_ALL_SOURCES)
 	set(${RESULT_ALL_SOURCES} ${RELEVANT_FILES} PARENT_SCOPE)
 endfunction()
 
+function(wd_glob_xaml_files ROOT_DIR RESULT_ALL_SOURCES)
+    file(GLOB_RECURSE RELEVANT_FILES
+        "${ROOT_DIR}/*.xaml.cs"
+        "${ROOT_DIR}/*.xaml"
+	)
+	set(${RESULT_ALL_SOURCES} ${RELEVANT_FILES} PARENT_SCOPE)
+endfunction()
+
+function(wd_glob_properties_files ROOT_DIR RESULT_ALL_SOURCES)
+    file(GLOB_RECURSE RELEVANT_FILES
+        "${ROOT_DIR}/Properties/*.cs"
+        "${ROOT_DIR}/Properties/*.resx"
+        "${ROOT_DIR}/Properties/*.Designer.cs"
+        "${ROOT_DIR}/Properties/*.settings"
+	)
+	set(${RESULT_ALL_SOURCES} ${RELEVANT_FILES} PARENT_SCOPE)
+endfunction()
+
+function(wd_glob_library_files ROOT_DIR RESULT_ALL_SOURCES)
+        file(GLOB_RECURSE RELEVANT_FILES
+        "${ROOT_DIR}/*.lib"
+	    )
+	    set(${RESULT_ALL_SOURCES} ${RELEVANT_FILES} PARENT_SCOPE)
+endfunction()
+
+function(wd_glob_dynamiclink_files ROOT_DIR RESULT_ALL_SOURCES)
+        file(GLOB_RECURSE RELEVANT_FILES
+        "${ROOT_DIR}/*.dll"
+	    )
+	    set(${RESULT_ALL_SOURCES} ${RELEVANT_FILES} PARENT_SCOPE)
+endfunction()
 # #####################################
 # ## wd_add_all_subdirs()
 # #####################################
@@ -421,7 +454,7 @@ endmacro()
 function(wd_add_external_projects_folder PROJECT_NUMBER)
 	set(CACHE_VAR_NAME "WD_EXTERNAL_PROJECT${PROJECT_NUMBER}")
 
-	set(${CACHE_VAR_NAME} "" CACHE PATH "A folder outside the wd repository that should be parsed for CMakeLists.txt files to include projects into the wd solution.")
+	set(${CACHE_VAR_NAME} "" CACHE PATH "A folder outside the engine repository that should be parsed for CMakeLists.txt files to include projects into the engine solution.")
 
 	set(CACHE_VAR_VALUE ${${CACHE_VAR_NAME}})
 
@@ -545,7 +578,7 @@ function(wd_set_build_types)
 		set(CMAKE_CONFIGURATION_TYPES "${WD_BUILDTYPE_ONLY}" CACHE STRING "" FORCE)
 	endif()
 
-	set(CMAKE_CONFIGURATION_TYPES "${CMAKE_CONFIGURATION_TYPES}" CACHE STRING "EZ build config types" FORCE)
+	set(CMAKE_CONFIGURATION_TYPES "${CMAKE_CONFIGURATION_TYPES}" CACHE STRING "WD build config types" FORCE)
 
 	set(CMAKE_BUILD_TYPE ${WD_BUILDTYPENAME_DEV} CACHE STRING "The default build type")
 	set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${CMAKE_CONFIGURATION_TYPES})
@@ -615,9 +648,7 @@ function(wd_download_and_extract URL DEST_FOLDER DEST_FILENAME)
 	if(${URL} MATCHES ".tar.gz$")
 		set(PKG_TYPE "tar.gz")
 	else()
-
-		# get_filename_component(PKG_TYPE ${URL} LAST_EXT)
-		set(PKG_TYPE "7z")
+		get_filename_component(PKG_TYPE ${URL} LAST_EXT)
 	endif()
 
 	set(FULL_FILENAME "${DEST_FILENAME}.${PKG_TYPE}")

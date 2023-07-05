@@ -14,6 +14,14 @@ if(CMAKE_BUILD_TYPE STREQUAL "Dev" OR "Debug")
         set(WD_V8_DLL_TYPE "x64.release")
 endif()
 
+function(wd_v8_export_prebuilt_dll TARGET_PROJECT)
+    file(GLOB V8_DLL ${TARGET_PROJECT}/*.dll)
+    add_custom_command(TARGET ${TARGET_PROJECT}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${V8_DLL} $<TARGET_FILE_PATH:${TARGET_PROJECT}>
+        WORKING_DIRECTORY
+    )
+endfunction()
+
 function(wd_v8_init)
     if(WD_V8_ROOT STREQUAL "")
         message(FATAL_ERROR "A Directory was not provided to install v8 inside.")
@@ -64,7 +72,7 @@ function(wd_v8_configurate)
         message(STATUS "We are now going to fetch v8. this might take a while, depending on your connection.")
         execute_process(COMMAND "fetch v8" WORKING_DIRECTORY "${WD_V8_BUILD_PATH}")
 
-        # After cloning, we need to sync and retrieve the dependency's. 
+        # After cloning, we need to sync and retrieve the dependency's.
         message(STATUS "Syncing v8.")
         execute_process(COMMAND "git fetch" WORKING_DIRECTORY "${WD_V8_BUILD_PATH}")
         execute_process(COMMAND "gclient sync" WORKING_DIRECTORY "${WD_V8_BUILD_PATH}")
@@ -72,8 +80,8 @@ function(wd_v8_configurate)
 endfunction()
 
 function(wd_v8_build)
-    # Notify the user that we will start building v8. this will take about 2-3 hours. 
-    message(WARNING "Building V8. (DLL VERSION) this will take about 2-3 hours. coffee is recommended. NOTE: PYTHON SHOULD ALSO BE IN PATH!")
+    # Notify the user that we will start building v8. this will take about 2-3 hours.
+    message(WARNING "Building V8. (DLL VERSION) this will take about 2-3 hours. NOTE: PYTHON SHOULD ALSO BE IN PATH!")
     execute_process(COMMAND "python tools/dev/gm.py x64.debug" WORKING_DIRECTORY "${WD_V8_BUILD_PATH}/v8")
     execute_process(COMMAND "python tools/dev/gm.py x64.release" WORKING_DIRECTORY "${WD_V8_BUILD_PATH}/v8")
 endfunction(wd_v8_build)

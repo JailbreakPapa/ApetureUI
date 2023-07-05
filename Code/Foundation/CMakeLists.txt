@@ -22,7 +22,7 @@ if (WD_CMAKE_PLATFORM_LINUX)
   if (NOT UUID_HEADER)
     message(FATAL_ERROR "Missing uuid/uuid.h. Have you installed the uuid-dev package?")
   endif()
-  
+
   target_link_libraries(${PROJECT_NAME}
     PRIVATE
 
@@ -39,7 +39,6 @@ if (CURRENT_OSX_VERSION)
 
   target_link_libraries(${PROJECT_NAME}
     PRIVATE
-
     ${CORESERVICES_LIBRARY}
     ${COREFOUNDATION_LIBRARY}
   )

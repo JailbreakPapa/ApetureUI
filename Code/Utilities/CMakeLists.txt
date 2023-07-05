@@ -11,7 +11,4 @@ if(MSVC)
   target_compile_options(${PROJECT_NAME} PRIVATE /W4 /WX)
 endif()
 
-target_link_libraries(${PROJECT_NAME}
-  PUBLIC
-  Core
-)
+

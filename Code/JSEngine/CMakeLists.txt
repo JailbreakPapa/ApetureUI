@@ -1,22 +1,17 @@
 wd_cmake_init()
 
-set(PROJECT_NAME apetrureuijs)
+# Get the name of this folder as the project name
+get_filename_component(PROJECT_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME_WE)
 
-wd_create_target(LIBRARY ${PROJECT_NAME})
+wd_create_target(SHARED_LIBRARY ${PROJECT_NAME})
 
 if(MSVC)
   target_compile_options(${PROJECT_NAME} PRIVATE /W4 /WX)
 endif()
-# Try to find vcpkg libs needed for the JSEngine.
 
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
-  Core
   Foundation
   Utilities
-  V8
-  unofficial::chakracore::chakracore
-  
 )
 
-wd_export_v8_binary(${PROJECT_NAME})

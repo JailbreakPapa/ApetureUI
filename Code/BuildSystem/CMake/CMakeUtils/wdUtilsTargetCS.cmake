@@ -5,7 +5,7 @@
 macro(wd_create_target_cs TYPE TARGET_NAME)
 	wd_apply_build_filter(${TARGET_NAME})
 
-	set(ARG_OPTIONS NO_WD_PREFIX)
+	set(ARG_OPTIONS NO_WD_PREFIX WPF_APPLICATION)
 	set(ARG_ONEVALUEARGS DOTNET_VERSION)
 	set(ARG_MULTIVALUEARGS "")
 	cmake_parse_arguments(ARG "${ARG_OPTIONS}" "${ARG_ONEVALUEARGS}" "${ARG_MULTIVALUEARGS}" ${ARGN})
@@ -26,6 +26,7 @@ macro(wd_create_target_cs TYPE TARGET_NAME)
 			add_library(${TARGET_NAME} SHARED ${ALL_SOURCE_FILES})
 
 		else()
+            # C# Static Support will soon be removed by cmake!
 			message(STATUS "Static Library (C#): ${TARGET_NAME}")
 			add_library(${TARGET_NAME} ${ALL_SOURCE_FILES})
 		endif()
@@ -38,7 +39,9 @@ macro(wd_create_target_cs TYPE TARGET_NAME)
 		message(STATUS "Application (C#): ${TARGET_NAME}")
 
 		add_executable(${TARGET_NAME} ${ALL_SOURCE_FILES})
+        if(ARG_WPF_APPLICATION)
 
+        endif()
 	else()
 		message(FATAL_ERROR "wd_create_target_cs: Missing argument to specify target type. Pass in 'APPLICATION' or 'SHARED_LIBRARY' or 'STATIC_LIBRARY'.")
 	endif()
@@ -56,7 +59,7 @@ macro(wd_create_target_cs TYPE TARGET_NAME)
 		# message(STATUS "Custom .NET version: ${ARG_DOTNET_VERSION}")
 		set_property(TARGET ${TARGET_NAME} PROPERTY VS_DOTNET_TARGET_FRAMEWORK_VERSION "v${ARG_DOTNET_VERSION}")
 	else()
-		set_property(TARGET ${TARGET_NAME} PROPERTY VS_DOTNET_TARGET_FRAMEWORK_VERSION "v4.6.1")
+		set_property(TARGET ${TARGET_NAME} PROPERTY VS_DOTNET_TARGET_FRAMEWORK_VERSION "v4.7.2")
 	endif()
 
 	wd_set_default_target_output_dirs(${TARGET_NAME})

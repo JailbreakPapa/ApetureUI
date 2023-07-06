@@ -21,3 +21,17 @@ But due to the locked-down nature of console development, ApertureUI for console
 As for now, PC/Mobile platforms will forever stay open-source, but consoles will be given by a case-by-case basis.
 
 Please contact us at: kura.studiosorg@gmail.com for more information on console platform support.
+
+# License
+
+The PC/Mobile platforms will stay open-source under the MIT License.
+
+Console Platforms (NDA) will stay proprietary, and can only be accessed through contacting us directly.
+
+Console Platforms will be Free* for Indie developers with < $100K annual revenue. * Will only contain binary releases
+
+For companies that are over that threshold, please contact us for licensing for Console platforms.
+
+Both Licenses will get free private support if needed, Indie or not.
+
+

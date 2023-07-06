@@ -10,7 +10,7 @@ The toolkit aims to be a open-source replacement for other Web-based UI Toolkits
 
 The current supported platforms that Aperture Can work with is Windows.
 
-Linux WILL be supported before the first toolkit release. 
+Linux WILL be supported before the first toolkit release.
 
 # Console Platforms (NDA)
 
@@ -23,6 +23,8 @@ As for now, PC/Mobile platforms will forever stay open-source, but consoles will
 Please contact us at: kura.studiosorg@gmail.com for more information on console platform support.
 
 # License
+
+Please look at: APERTUREUI_FREEAGREEMENT.txt for more information about Licensing.
 
 The PC/Mobile platforms will stay open-source under the MIT License.
 
